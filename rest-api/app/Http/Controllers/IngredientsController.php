@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIngredientRequest;
+use App\Http\Requests\UpdateIngredientRequest;
 use App\Ingredient;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
@@ -56,15 +57,15 @@ class IngredientsController extends Controller
      *
      * @return JsonResponse - 200 OK
      */
-    public function update(Request $request, Ingredient $ingredient): JsonResponse
+    public function update(StoreIngredientRequest $request, Ingredient $ingredient): JsonResponse
     {
-        $ingredient->update($request->all());
+        $ingredient->update($request->validated());
 
         return response()->json($ingredient, 200);
     }
 
     /**
-     * [DELETE] - /{id}
+     * [DELETE] - /{ingredient}
      * Delete an ingredient
      *
      * @return JsonResponse - 204 No Content

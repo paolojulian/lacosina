@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class StoreIngredientRequest extends FormRequest
+class UpdateIngredientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +24,12 @@ class StoreIngredientRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (isset($this->ingredient) && $this->ingredient) {
-            $name = [
+        return [
+            'name' => [
                 'required',
                 'max:255',
                 Rule::unique('ingredients')->ignore($this->ingredient)
-            ];
-        } else {
-            $name = [
-                'required',
-                'max:255',
-                'unique:ingredients,name'
-            ];
-
-        }
-        return [
-            'name' => $name,
+            ],
             'description' => 'max:1000',
             'category' => 'max:255',
         ];

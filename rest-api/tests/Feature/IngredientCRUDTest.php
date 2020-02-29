@@ -102,4 +102,88 @@ class IngredientCRUDTest extends TestCase
                 'category'
             ]);
     }
+
+    public function testUpdateWithEmptyFields__validation(): void
+    {
+        $payload = [
+            'name' => '',
+        ];
+        $this->json('PUT', '/api/ingredients/1', $payload)
+            ->assertStatus(422)
+            ->assertJson([
+                'errors' => [
+                    'name' => ['Ingredient name is required'],
+                ]
+            ]);
+    }
+
+    public function testUpdateWithDuplicateName__validation(): void
+    {
+        $payload = [
+            'name' => 'Pepper',
+        ];
+        $this->json('PUT', '/api/ingredients/1', $payload)
+            ->assertStatus(422)
+            ->assertJson([
+                'errors' => [
+                    'name' => ['The name has already been taken.'],
+                ]
+            ]);
+    }
+
+    public function testUpdateMaxChar__validation(): void
+    {
+        $payload = [
+            'name' => Str::random(256),
+            'description' => Str::random(1001),
+            'category' => Str::random(256),
+        ];
+        $this->json('PUT', '/api/ingredients/1', $payload)
+            ->assertStatus(422)
+            ->assertJson([
+                'errors' => [
+                    'name' => ['The name may not be greater than 255 characters.'],
+                    'description' => ['The description may not be greater than 1000 characters.'],
+                    'category' => ['The category may not be greater than 255 characters.'],
+                ]
+            ]);
+    }
+
+    public function testUpdateWithSameName__success(): void
+    {
+        $payload = [
+            'name' => 'Salt',
+            'description' => 'New',
+            'category' => 'Base'
+        ];
+        $this->json('PUT', '/api/ingredients/1', $payload)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'name',
+                'description',
+                'category'
+            ]);
+    }
+
+    public function testUpdateWithMaxChar__success(): void
+    {
+        $payload = [
+            'name' => Str::random(255),
+            'description' => Str::random(1000),
+            'category' => Str::random(255),
+        ];
+        $this->json('PUT', '/api/ingredients/1', $payload)
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'name',
+                'description',
+                'category'
+            ]);
+    }
+
+    public function testDeleteNonExisting__shouldNotFound(): void
+    {
+        $this->json('DELETE', '/api/ingredients/1230921')
+            ->assertStatus(404);
+    }
 }
