@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIngredientRequest;
-use App\Http\Requests\UpdateIngredientRequest;
 use App\Ingredient;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 /**
  * @api
@@ -28,7 +26,7 @@ class IngredientsController extends Controller
     }
 
     /**
-     * [GET] - /{id}
+     * [GET] - /{ingredient}
      * Retrieves an ingredient based on the passed id
      *
      * @return Ingredient

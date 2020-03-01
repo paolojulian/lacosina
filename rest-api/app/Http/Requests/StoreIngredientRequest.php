@@ -24,6 +24,7 @@ class StoreIngredientRequest extends FormRequest
      */
     public function rules(): array
     {
+        // If updating
         if (isset($this->ingredient) && $this->ingredient) {
             $name = [
                 'required',
