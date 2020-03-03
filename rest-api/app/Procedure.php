@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ingredient extends Model
+class Procedure extends Model
 {
     /**
      * @Override
@@ -13,6 +13,7 @@ class Ingredient extends Model
     public $fillable = [
         'name',
         'description',
-        'category'
+        'duration_from_minute',
+        'duration_to_minute',
     ];
 }
