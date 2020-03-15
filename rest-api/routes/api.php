@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Ingredients
+Route::get('ingredients', 'IngredientsController@index');
+Route::get('ingredients/{ingredient}', 'IngredientsController@details');
+Route::post('ingredients', 'IngredientsController@store');
+Route::put('ingredients/{ingredient}', 'IngredientsController@update');
+Route::delete('ingredients/{ingredient}', 'IngredientsController@delete');
+
+Route::get('procedures', 'ProceduresController@index');
+Route::get('procedures/{procedure}', 'ProceduresController@details');
+Route::post('procedures', 'ProceduresController@store');
+Route::put('procedures/{procedure}', 'ProceduresController@update');
+Route::delete('procedures/{procedure}', 'ProceduresController@delete');
