@@ -23,11 +23,23 @@ Route::get('ingredients/{ingredient}', 'IngredientsController@details');
 Route::post('ingredients', 'IngredientsController@store');
 Route::put('ingredients/{ingredient}', 'IngredientsController@update');
 Route::delete('ingredients/{ingredient}', 'IngredientsController@delete');
+
 // Procedures
 Route::get('procedures', 'ProceduresController@index');
 Route::get('procedures/{procedure}', 'ProceduresController@details');
 Route::post('procedures', 'ProceduresController@store');
 Route::put('procedures/{procedure}', 'ProceduresController@update');
 Route::delete('procedures/{procedure}', 'ProceduresController@delete');
+
 // Recipes
 Route::get('recipes', 'RecipesController@index');
+Route::get('recipes/{recipe}', 'RecipesController@details');
+Route::post('recipes', 'RecipesController@store');
+Route::post('recipes/{recipe}/ingredients', 'RecipesController@addIngredient');
+Route::post('recipes/{recipe}/procedures', 'RecipesController@addProcedures');
+Route::put('recipes/{recipe}', 'RecipesController@update');
+Route::put('recipes/{recipe}/ingredients', 'RecipesController@updateIngredient');
+Route::put('recipes/{recipe}/procedures', 'RecipesController@updateProcedures');
+Route::delete('recipes/{recipe}', 'RecipesController@delete');
+Route::delete('recipes/{recipe}/ingredients', 'RecipesController@deleteIngredient');
+Route::delete('recipes/{recipe}/procedures', 'RecipesController@deleteProcedures');
