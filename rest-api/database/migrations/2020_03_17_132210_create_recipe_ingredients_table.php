@@ -22,7 +22,9 @@ class CreateRecipeIngredientsTable extends Migration
                 ->default(null)
                 ->max(50);
 
-            $table->text('description')->max(1000);
+            $table->string('description')
+                ->default('')
+                ->max(1000);
 
             $table->string('image')
                 ->nullable()
