@@ -16,7 +16,7 @@ class CreateProceduresTable extends Migration
         Schema::create('procedures', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->max(50);
-            $table->text('description')->max(1000);
+            $table->string('description')->default('')->max(1000);
             $table->string('image')->nullable()->default(null);
             $table->integer('duration_from_minute')->default(0);
             $table->integer('duration_to_minute');
