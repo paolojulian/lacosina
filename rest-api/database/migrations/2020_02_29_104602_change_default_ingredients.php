@@ -15,7 +15,7 @@ class ChangeDefaultIngredients extends Migration
     {
         Schema::table('ingredients', function (Blueprint $table) {
             //
-            $table->text('description')
+            $table->string('description')
                 ->default('')
                 ->max(1000)
                 ->change();

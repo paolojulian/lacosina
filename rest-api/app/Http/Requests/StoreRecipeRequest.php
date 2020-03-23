@@ -13,7 +13,7 @@ class StoreRecipeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -35,16 +35,18 @@ class StoreRecipeRequest extends FormRequest
                 'integer',
                 'min:0'
             ],
-            'ingredients' => 'array|min:1|max:100',
-            'ingredients.measurement' => 'required|string|distinct|min:3',
+
+            'ingredients' => 'required|array|min:1|max:100',
+            'ingredients.measurement' => 'string|min:3',
             'ingredients.optional_name' => 'max:50',
             'ingredients.description' => 'max:1000',
             'ingredients.ingredient_id' => 'exists:ingredients,id',
 
-            'procedures' => 'array|min:1|max:100',
+            'procedures' => 'required|array|min:1|max:100',
             'procedures.optional_name' => 'max:50',
             'procedures.description' => 'max:1000',
-            'procedures.ingredient_id' => 'exists:procedures,id',
+            'procedures.procedure_id' => 'exists:procedures,id',
+
             'duration_from_minute' => [
                 'required_with:duration_to_minute',
                 'integer',
@@ -58,7 +60,6 @@ class StoreRecipeRequest extends FormRequest
             ],
 
             'duration_to_minute' => [
-                'required',
                 'required_with:duration_from_minute',
                 'greater_than_field:duration_from_minute',
                 'integer',

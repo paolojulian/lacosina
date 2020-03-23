@@ -43,16 +43,15 @@ class StoreProcedureRequest extends FormRequest
             'name' => $name,
             'description' => 'max:1000',
             'duration_from_minute' => [
-                'required_with:duration_to_minute',
+                'required',
                 'integer',
-                'min:0'
+                'min:1'
             ],
             'duration_to_minute' => [
                 'required',
-                'required_with:duration_from_minute',
                 'greater_than_field:duration_from_minute',
                 'integer',
-                'min:0'
+                'min:1'
             ],
         ];
     }

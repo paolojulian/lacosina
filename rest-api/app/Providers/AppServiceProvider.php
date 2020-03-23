@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
             $min_field = $parameters[0];
             $data = $validator->getData();
             $min_value = $data[$min_field];
+            if ($min_value === null) {
+                return true;
+            }
 
             return $value > $min_value;
         });

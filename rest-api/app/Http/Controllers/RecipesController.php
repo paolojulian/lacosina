@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRecipeRequest;
 use App\Recipe;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @api
@@ -19,7 +19,7 @@ class RecipesController extends Controller
      * :queryString
      *  -page
      */
-    public function index(): Collection
+    public function index(): LengthAwarePaginator
     {
         return Recipe::paginate(10);
     }
@@ -34,7 +34,7 @@ class RecipesController extends Controller
     }
 
     /**
-     * [GET] - /{recipe}
+     * [POST] - /{recipe}
      * Save a recipe
      */
     public function store(StoreRecipeRequest $request): JsonResponse
