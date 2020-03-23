@@ -30,11 +30,6 @@ class StoreRecipeRequest extends FormRequest
                 'unique:procedures,name'
             ],
             'description' => 'max:1000',
-            'duration_from_minute' => [
-                'required_with:duration_to_minute',
-                'integer',
-                'min:0'
-            ],
 
             'ingredients' => 'required|array|min:1|max:100',
             'ingredients.measurement' => 'string|min:3',
@@ -48,22 +43,18 @@ class StoreRecipeRequest extends FormRequest
             'procedures.procedure_id' => 'exists:procedures,id',
 
             'duration_from_minute' => [
+                'required',
                 'required_with:duration_to_minute',
                 'integer',
-                'min:0'
-            ],
-            'duration_to_minute' => [
-                'required_with:duration_from_minute',
-                'greater_than_field:duration_from_minute',
-                'integer',
-                'min:0'
+                'min:1'
             ],
 
             'duration_to_minute' => [
+                'required',
                 'required_with:duration_from_minute',
                 'greater_than_field:duration_from_minute',
                 'integer',
-                'min:0'
+                'min:1'
             ],
         ];
     }

@@ -14,7 +14,8 @@ class AddDefaultValuesToIngredients extends Migration
     public function up()
     {
         Schema::table('ingredients', function (Blueprint $table) {
-            $table->string('description')->default('')->change();
+            $table->string('name')->max(50)->change();
+            $table->string('description')->max(1000)->default('')->change();
             $table->string('category')->nullable()->change();
         });
     }
