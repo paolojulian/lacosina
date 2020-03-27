@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRecipeRequest;
 use App\Recipe;
 use App\RecipeIngredient;
 use App\RecipeProcedure;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -37,8 +38,29 @@ class RecipesController extends Controller
     }
 
     /**
+     * [GET] - /{recipe}/ingredients
+     * Fetch the ingredients of the recipe
+     */
+    public function ingredients(Recipe $recipe): Collection
+    {
+        return RecipeIngredient::where('recipe_id', $recipe->id)->get();
+    }
+
+    /**
+     * [GET] - /{recipe}/ingredients
+     * Fetch the ingredients of the recipe
+     */
+    public function procedures(Recipe $recipe): Collection
+    {
+        return RecipeProcedure::where('recipe_id', $recipe->id)->get();
+    }
+
+    /**
      * [POST] - /{recipe}
      * Save a recipe
+     *
+     * @return JsonResponse
+     *  - Returns the id of the created recipe
      */
     public function store(StoreRecipeRequest $request): JsonResponse
     {

@@ -34,6 +34,8 @@ Route::delete('procedures/{procedure}', 'ProceduresController@delete');
 // Recipes
 Route::get('recipes', 'RecipesController@index');
 Route::get('recipes/{recipe}', 'RecipesController@details');
+Route::get('recipes/{recipe}/ingredients', 'RecipesController@ingredients');
+Route::get('recipes/{recipe}/procedures', 'RecipesController@procedures');
 Route::post('recipes', 'RecipesController@store');
 Route::post('recipes/{recipe}/ingredients', 'RecipesController@addIngredient');
 Route::post('recipes/{recipe}/procedures', 'RecipesController@addProcedures');
