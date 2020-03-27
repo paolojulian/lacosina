@@ -56,7 +56,7 @@ class RecipesController extends Controller
     }
 
     /**
-     * [POST] - /{recipe}
+     * [POST] - /
      * Save a recipe
      *
      * @return JsonResponse
