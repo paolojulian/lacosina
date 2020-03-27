@@ -57,7 +57,7 @@ class RecipesController extends Controller
 
     /**
      * [POST] - /
-     * Save a recipe
+     * Save a recipe along with its ingredients and procedures
      *
      * @return JsonResponse
      *  - Returns the id of the created recipe
@@ -65,6 +65,7 @@ class RecipesController extends Controller
     public function store(StoreRecipeRequest $request): JsonResponse
     {
         $recipeData = $request->validated();
+        $maxTryAttempt = 2;
         return DB::transaction(function () use ($recipeData) {
             $recipe = Recipe::create($recipeData);
 
@@ -79,6 +80,6 @@ class RecipesController extends Controller
             }
 
             return response()->json($recipe->id, 201);
-        }, 2);
+        }, $maxTryAttempt);
     }
 }
