@@ -12,11 +12,13 @@ class RecipeProcedure extends Model
      * @inheritDoc
      */
     public $fillable = [
-        'optional_name',
         'description',
         'duration_from_minute',
         'duration_to_minute',
-        'image'
+        'image',
+        'optional_name',
+        'procedure_id',
+        'recipe_id',
     ];
 
     public function recipe(): BelongsTo

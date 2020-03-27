@@ -12,10 +12,12 @@ class RecipeIngredient extends Model
      * @inheritDoc
      */
     public $fillable = [
+        'description',
+        'image',
+        'ingredient_id',
         'measurement',
         'optional_name',
-        'description',
-        'image'
+        'recipe_id',
     ];
 
     public function recipe(): BelongsTo

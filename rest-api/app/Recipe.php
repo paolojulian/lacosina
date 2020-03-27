@@ -16,7 +16,7 @@ class Recipe extends Model
         'description',
         'image',
         'duration_from_minute',
-        'duration_to_minute'
+        'duration_to_minute',
     ];
 
     public function ingredients(): HasMany

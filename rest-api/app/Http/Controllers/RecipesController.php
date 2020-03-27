@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRecipeRequest;
 use App\Recipe;
+use App\RecipeIngredient;
+use App\RecipeProcedure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @api
@@ -39,8 +42,21 @@ class RecipesController extends Controller
      */
     public function store(StoreRecipeRequest $request): JsonResponse
     {
-        $recipe = Recipe::create($request->validated());
+        $recipeData = $request->validated();
+        return DB::transaction(function () use ($recipeData) {
+            $recipe = Recipe::create($recipeData);
 
-        return response()->json($recipe, 201);
+            foreach ($recipeData['ingredients'] as $ingredient) {
+                $ingredient['recipe_id'] = $recipe->id;
+                RecipeIngredient::create($ingredient);
+            }
+
+            foreach ($recipeData['procedures'] as $procedure) {
+                $procedure['recipe_id'] = $recipe->id;
+                RecipeProcedure::create($procedure);
+            }
+
+            return response()->json($recipe->id, 201);
+        }, 2);
     }
 }
