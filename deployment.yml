@@ -2,14 +2,34 @@
 kind: Service
 apiVersion: v1
 metadata:
-    name: RestAPI
+    name: authapiservice
 spec:
     selector:
-        app: rest-api
+        app: auth-api
     ports:
         -   protocol: "TCP"
-            port: 8080
-            targetPort: 80
+            port: 9000
+            targetPort: 8080
             nodePort: 30001
     type: LoadBalancer
         
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: myappdeployment
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: auth-api
+    template:
+        metadata:
+            labels:
+                app: auth-api
+        spec:
+            containers:
+                - name: auth-api
+                  image: chefpipz/auth-api:v1.0.0
+                  ports:
+                    - containerPort: 8080
